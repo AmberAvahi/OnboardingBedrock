@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Model Evaluation Dashboard</title>
+<style>
+:root{--bg:#f9f9f7;--card:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--line:#e1e0d9;
+--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--s6:#008300}
+@media (prefers-color-scheme:dark){:root{--bg:#0d0d0d;--card:#1a1a19;--ink:#fff;--ink2:#c3c2b7;--line:#2c2c2a;
+--s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#008300}}
+body{margin:0;padding:24px 16px;background:var(--bg);color:var(--ink);font:15px system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1000px;margin:auto}
+h1,h2{margin:0 0 8px}h2{font-size:17px}p,small,.muted{color:var(--ink2)}
+section{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;margin:16px 0;overflow-x:auto}
+table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px}
+.bar{display:inline-block;height:14px;border-radius:4px;vertical-align:middle;margin-right:8px}
+.sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+label{display:block}input[type=range]{width:100%}
+svg text{fill:var(--ink2);font-size:12px}svg .lbl{fill:var(--ink)}
+li{margin:6px 0}
+#heat td,#heat th{padding:6px 8px}#heat td:first-child{white-space:normal;min-width:190px}
+</style>
+</head>
+<body>
+<main>
+<h1>Model evaluation dashboard</h1>
+<p id="meta"></p>
+<section>
+  <h2>Scoring weights</h2>
+  <div class="sliders">
+    <label>Quality <b id="vq"></b><input id="wq" type="range" min="0" max="100" value="60"></label>
+    <label>Cost <b id="vc"></b><input id="wc" type="range" min="0" max="100" value="20"></label>
+    <label>Latency <b id="vl"></b><input id="wl" type="range" min="0" max="100" value="20"></label>
+  </div>
+</section>
+<section><h2>Recommendations</h2><ul id="recs"></ul></section>
+<section><h2>Leaderboard</h2><div id="board"></div></section>
+<section><h2>Quality vs cost</h2><div id="scatter"></div></section>
+<section><h2>Quality by category (1-5)</h2><div id="heat"></div></section>
+<p><small>Quality is graded by Claude Opus 4.6 against reference answers. Cost uses list prices per 1M tokens (Nova Pro's price is not verified;
+Anthropic prices may differ on Bedrock). Latency was measured with 8 concurrent requests, so compare models relative to each other.
+Aggregate score (0-100) = weighted mean of quality, cost (log scale) and latency, each rescaled so the best model scores 1 and the worst 0.</small></p>
+</main>
+<script>
+const D = __DATA__;
+const $ = id => document.getElementById(id);
+const models = D.models, cats = D.categories;
+const color = m => `var(--s${models.indexOf(m) + 1})`;
+const swatch = m => `<span class="sw" style="background:${color(m)}"></span>`;
+const stats = models.map(m => {
+  const q = Object.values(D.quality[m]);
+  return {m, quality: q.reduce((a, b) => a + b, 0) / q.length, cost1k: D.cost[m] / D.runs[m] * 1000,
+          lat: D.latency[m].mean, p95: D.latency[m].p95, err: D.errors[m]};
+});
+const tests = Math.round(models.reduce((n, m) => n + D.runs[m] + D.errors[m], 0) / models.length);
+$("meta").textContent = `${models.length} models, ${cats.length} categories, ${tests} tests per model.`;
+
+function render() {
+  const w = {q: +$("wq").value, c: +$("wc").value, l: +$("wl").value}, total = w.q + w.c + w.l || 1;
+  $("vq").textContent = w.q; $("vc").textContent = w.c; $("vl").textContent = w.l;
+  const range = f => [Math.min(...stats.map(f)), Math.max(...stats.map(f))];
+  const norm = (v, [lo, hi], invert) => hi === lo ? 1 : (invert ? hi - v : v - lo) / (hi - lo);
+  const rq = range(s => s.quality), rc = range(s => Math.log(s.cost1k)), rl = range(s => s.lat);
+  const rows = stats.map(s => ({...s, agg: 100 * (w.q * norm(s.quality, rq) + w.c * norm(Math.log(s.cost1k), rc, true)
+                                                   + w.l * norm(s.lat, rl, true)) / total})).sort((a, b) => b.agg - a.agg);
+  $("board").innerHTML = `<table><tr><th>#</th><th>Model</th><th>Aggregate</th><th>Quality</th><th>Cost / 1K req</th>
+    <th>Mean latency</th><th>p95</th><th>Errors</th></tr>` + rows.map((r, i) => `<tr><td>${i + 1}</td><td>${swatch(r.m)}${r.m}</td>
+    <td><span class="bar" style="width:${r.agg * 1.2}px;background:${color(r.m)}"></span>${r.agg.toFixed(1)}</td>
+    <td>${r.quality.toFixed(2)}</td><td>$${r.cost1k.toFixed(3)}</td><td>${r.lat.toFixed(1)}s</td><td>${r.p95.toFixed(1)}s</td><td>${r.err}</td></tr>`).join("") + "</table>";
+
+  const bestQ = Math.max(...rows.map(r => r.quality));
+  const byQuality = [...rows].sort((a, b) => b.quality - a.quality)[0];
+  const value = rows.filter(r => r.quality >= 0.95 * bestQ).sort((a, b) => a.cost1k - b.cost1k)[0];
+  const fast = rows.filter(r => r.quality >= 0.9 * bestQ).sort((a, b) => a.lat - b.lat)[0];
+  const weak = rows.map(r => [r.m, cats.filter(c => D.quality[r.m][c] < 3)]).filter(x => x[1].length);
+  $("recs").innerHTML = [
+    `<b>Best overall</b> with the current weights: ${rows[0].m} (score ${rows[0].agg.toFixed(1)}).`,
+    `<b>Highest quality</b>: ${byQuality.m} (${byQuality.quality.toFixed(2)} / 5) at $${byQuality.cost1k.toFixed(3)} per 1K requests.`,
+    `<b>Best value</b>: ${value.m}, the cheapest model within 5% of the best quality ($${value.cost1k.toFixed(3)} per 1K requests).`,
+    `<b>Fastest acceptable</b>: ${fast.m}, the fastest model within 10% of the best quality (${fast.lat.toFixed(1)}s mean).`,
+    ...weak.map(([m, c]) => `<b>Avoid ${m}</b> for: ${c.map(x => x.split(" (")[0]).join(", ")} (category score below 3).`),
+  ].map(t => `<li>${t}</li>`).join("");
+}
+["wq", "wc", "wl"].forEach(id => $(id).addEventListener("input", render));
+render();
+
+(function scatter() {
+  const W = 640, H = 300, pad = {l: 50, r: 90, t: 10, b: 36};
+  const xs = stats.map(s => Math.log10(s.cost1k)), ys = stats.map(s => s.quality);
+  const x0 = Math.min(...xs) - 0.2, x1 = Math.max(...xs) + 0.2, y0 = Math.min(...ys) - 0.3, y1 = Math.min(5, Math.max(...ys) + 0.3);
+  const px = v => pad.l + (v - x0) / (x1 - x0) * (W - pad.l - pad.r), py = v => H - pad.b - (v - y0) / (y1 - y0) * (H - pad.t - pad.b);
+  const ticks = [];
+  for (let e = Math.ceil(x0); e <= Math.floor(x1); e++) ticks.push(e);
+  $("scatter").innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%">
+    <line x1="${pad.l}" y1="${H - pad.b}" x2="${W - pad.r}" y2="${H - pad.b}" stroke="var(--line)"/>
+    <line x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${H - pad.b}" stroke="var(--line)"/>
+    ${ticks.map(e => `<text x="${px(e)}" y="${H - 16}" text-anchor="middle">$${10 ** e}</text>`).join("")}
+    ${[3, 3.5, 4, 4.5, 5].filter(v => v > y0 && v <= y1).map(v => `<text x="${pad.l - 6}" y="${py(v) + 4}" text-anchor="end">${v}</text>`).join("")}
+    <text x="${(pad.l + W - pad.r) / 2}" y="${H - 2}" text-anchor="middle">Cost per 1K requests (log scale)</text>
+    <text x="12" y="${H / 2}" transform="rotate(-90 12 ${H / 2})" text-anchor="middle">Quality (1-5)</text>
+    ${stats.map((s, i) => `<circle cx="${px(xs[i])}" cy="${py(s.quality)}" r="7" fill="${color(s.m)}" stroke="var(--card)" stroke-width="2">
+      <title>${s.m}: quality ${s.quality.toFixed(2)}, $${s.cost1k.toFixed(3)} per 1K requests</title></circle>
+      <text class="lbl" x="${px(xs[i]) + 11}" y="${py(s.quality) + 4 + (i % 2 ? 12 : -4)}">${s.m}</text>`).join("")}</svg>`;
+})();
+
+(function heatmap() {
+  const best = c => Math.max(...models.map(m => D.quality[m][c] ?? 0));
+  $("heat").innerHTML = `<table><tr><th>Category</th>${models.map(m => `<th>${swatch(m)}${m}</th>`).join("")}</tr>` + cats.map(c =>
+    `<tr><td>${c.split(" (")[0]}</td>${models.map(m => {
+      const v = D.quality[m][c];
+      if (v === undefined) return "<td>-</td>";
+      return `<td style="background:color-mix(in srgb,var(--s1) ${Math.max(0, (v - 1) / 4) * 50}%,var(--card));${v === best(c) ? "font-weight:700" : ""}">${v.toFixed(1)}</td>`;
+    }).join("")}</tr>`).join("") + "</table><p class='muted'><small>Bold marks the best score in each category.</small></p>";
+})();
+</script>
+</body>
+</html>

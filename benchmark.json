@@ -1,0 +1,252 @@
+[
+ {
+  "question": "What is the speed of light in a vacuum?",
+  "answer": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 3 \u00d7 10\u2078 m/s).",
+  "domain": "science"
+ },
+ {
+  "question": "What is the chemical formula for water?",
+  "answer": "The chemical formula for water is H\u2082O, consisting of two hydrogen atoms bonded to one oxygen atom.",
+  "domain": "science"
+ },
+ {
+  "question": "What is the powerhouse of the cell?",
+  "answer": "The mitochondrion is known as the powerhouse of the cell because it produces ATP through cellular respiration.",
+  "domain": "science"
+ },
+ {
+  "question": "What is Newton's second law of motion?",
+  "answer": "Newton's second law states that the force acting on an object equals its mass multiplied by its acceleration (F = ma).",
+  "domain": "science"
+ },
+ {
+  "question": "What is the atomic number of carbon?",
+  "answer": "Carbon has an atomic number of 6, meaning it has 6 protons in its nucleus.",
+  "domain": "science"
+ },
+ {
+  "question": "What gas do plants absorb during photosynthesis?",
+  "answer": "Plants absorb carbon dioxide (CO\u2082) from the atmosphere during photosynthesis to produce glucose and oxygen.",
+  "domain": "science"
+ },
+ {
+  "question": "What is the half-life of Carbon-14?",
+  "answer": "The half-life of Carbon-14 is approximately 5,730 years, making it useful for radiocarbon dating of organic materials.",
+  "domain": "science"
+ },
+ {
+  "question": "What is the most abundant gas in Earth's atmosphere?",
+  "answer": "Nitrogen (N\u2082) is the most abundant gas in Earth's atmosphere, making up approximately 78% of it.",
+  "domain": "science"
+ },
+ {
+  "question": "What is DNA's double helix structure made of?",
+  "answer": "DNA's double helix consists of two strands of nucleotides connected by hydrogen bonds between complementary base pairs (adenine-thymine and cytosine-guanine).",
+  "domain": "science"
+ },
+ {
+  "question": "What is absolute zero?",
+  "answer": "Absolute zero is the lowest possible temperature, equal to 0 Kelvin or approximately \u2212273.15\u00b0C, at which molecular motion theoretically stops.",
+  "domain": "science"
+ },
+ {
+  "question": "In what year did World War II end?",
+  "answer": "World War II ended in 1945, with Germany surrendering in May and Japan surrendering in September.",
+  "domain": "history"
+ },
+ {
+  "question": "Who was the first President of the United States?",
+  "answer": "George Washington was the first President of the United States, serving from 1789 to 1797.",
+  "domain": "history"
+ },
+ {
+  "question": "What ancient wonder was located in Alexandria, Egypt?",
+  "answer": "The Lighthouse of Alexandria, one of the Seven Wonders of the Ancient World, was located in Alexandria, Egypt.",
+  "domain": "history"
+ },
+ {
+  "question": "In what year did the French Revolution begin?",
+  "answer": "The French Revolution began in 1789 with the storming of the Bastille on July 14.",
+  "domain": "history"
+ },
+ {
+  "question": "Which empire was ruled by Genghis Khan?",
+  "answer": "Genghis Khan founded and ruled the Mongol Empire, which became the largest contiguous land empire in history.",
+  "domain": "history"
+ },
+ {
+  "question": "What year did the Berlin Wall fall?",
+  "answer": "The Berlin Wall fell on November 9, 1989, marking a pivotal moment in the end of the Cold War.",
+  "domain": "history"
+ },
+ {
+  "question": "Who wrote the Magna Carta, and in what year was it signed?",
+  "answer": "King John of England was compelled by rebellious barons to seal the Magna Carta in 1215, establishing limits on royal power.",
+  "domain": "history"
+ },
+ {
+  "question": "What civilization built Machu Picchu?",
+  "answer": "Machu Picchu was built by the Inca civilization in the 15th century, likely as a royal estate for Emperor Pachacuti.",
+  "domain": "history"
+ },
+ {
+  "question": "In what year did Christopher Columbus first arrive in the Americas?",
+  "answer": "Christopher Columbus first arrived in the Americas in 1492, landing in the Bahamas on October 12.",
+  "domain": "history"
+ },
+ {
+  "question": "What was the name of the first artificial satellite launched into space, and which country launched it?",
+  "answer": "Sputnik 1 was the first artificial satellite, launched by the Soviet Union on October 4, 1957.",
+  "domain": "history"
+ },
+ {
+  "question": "What is the longest river in the world?",
+  "answer": "The Nile River in Africa is generally considered the longest river in the world, stretching approximately 6,650 kilometers (4,130 miles).",
+  "domain": "geography"
+ },
+ {
+  "question": "Which country has the largest land area in the world?",
+  "answer": "Russia is the largest country in the world by land area, covering approximately 17.1 million square kilometers.",
+  "domain": "geography"
+ },
+ {
+  "question": "What is the tallest mountain in the world?",
+  "answer": "Mount Everest, located in the Himalayas on the border of Nepal and Tibet, is the tallest mountain in the world at 8,849 meters (29,032 feet) above sea level.",
+  "domain": "geography"
+ },
+ {
+  "question": "Which continent is the least populated?",
+  "answer": "Antarctica is the least populated continent, as it has no permanent human residents, only temporary scientific researchers.",
+  "domain": "geography"
+ },
+ {
+  "question": "What is the smallest country in the world by area?",
+  "answer": "Vatican City, an independent city-state within Rome, Italy, is the smallest country in the world, covering just 0.44 square kilometers.",
+  "domain": "geography"
+ },
+ {
+  "question": "Which ocean is the largest in the world?",
+  "answer": "The Pacific Ocean is the largest ocean in the world, covering approximately 165 million square kilometers and accounting for about 46% of Earth's water surface.",
+  "domain": "geography"
+ },
+ {
+  "question": "What is the driest desert in the world?",
+  "answer": "The Atacama Desert in South America, located primarily in Chile, is considered the driest non-polar desert in the world.",
+  "domain": "geography"
+ },
+ {
+  "question": "Which country has the most natural lakes?",
+  "answer": "Canada has the most natural lakes in the world, containing approximately 879,800 lakes, which is more than any other country.",
+  "domain": "geography"
+ },
+ {
+  "question": "What is the deepest lake in the world?",
+  "answer": "Lake Baikal in Siberia, Russia, is the deepest lake in the world, reaching a maximum depth of about 1,642 meters (5,387 feet).",
+  "domain": "geography"
+ },
+ {
+  "question": "Which is the most populous country in the world?",
+  "answer": "India surpassed China in 2023 to become the most populous country in the world, with a population exceeding 1.4 billion people.",
+  "domain": "geography"
+ },
+ {
+  "question": "What year was the World Wide Web invented?",
+  "answer": "The World Wide Web was invented in 1989 by British scientist Tim Berners-Lee at CERN.",
+  "domain": "technology"
+ },
+ {
+  "question": "What does CPU stand for in computing?",
+  "answer": "CPU stands for Central Processing Unit, which is the primary component of a computer that performs instructions.",
+  "domain": "technology"
+ },
+ {
+  "question": "What programming language was created by Guido van Rossum?",
+  "answer": "Python was created by Guido van Rossum and first released in 1991.",
+  "domain": "technology"
+ },
+ {
+  "question": "What is Moore's Law?",
+  "answer": "Moore's Law is the observation by Gordon Moore that the number of transistors on a microchip doubles approximately every two years, while costs are halved.",
+  "domain": "technology"
+ },
+ {
+  "question": "What does HTTP stand for?",
+  "answer": "HTTP stands for HyperText Transfer Protocol, which is the foundation of data communication on the World Wide Web.",
+  "domain": "technology"
+ },
+ {
+  "question": "Who co-founded Apple Inc. alongside Steve Jobs?",
+  "answer": "Apple Inc. was co-founded by Steve Wozniak and Ronald Wayne alongside Steve Jobs in 1976.",
+  "domain": "technology"
+ },
+ {
+  "question": "What is the function of RAM in a computer?",
+  "answer": "RAM, or Random Access Memory, is a form of short-term volatile memory that temporarily stores data a computer is actively using for quick access.",
+  "domain": "technology"
+ },
+ {
+  "question": "What year was the first iPhone released?",
+  "answer": "The first iPhone was released by Apple on June 29, 2007.",
+  "domain": "technology"
+ },
+ {
+  "question": "What is the binary number system?",
+  "answer": "The binary number system is a base-2 numeral system that uses only two digits, 0 and 1, and serves as the fundamental language of computers.",
+  "domain": "technology"
+ },
+ {
+  "question": "What does GPS stand for and who developed it?",
+  "answer": "GPS stands for Global Positioning System, and it was developed by the United States Department of Defense, becoming fully operational in 1995.",
+  "domain": "technology"
+ },
+ {
+  "question": "Who wrote the novel 'Pride and Prejudice'?",
+  "answer": "'Pride and Prejudice' was written by Jane Austen and first published in 1813.",
+  "domain": "literature"
+ },
+ {
+  "question": "In which Shakespeare play does the character Hamlet appear?",
+  "answer": "Hamlet appears in William Shakespeare's tragedy 'Hamlet, Prince of Denmark,' written around 1600\u20131601.",
+  "domain": "literature"
+ },
+ {
+  "question": "What is the name of the whale in Herman Melville's 'Moby-Dick'?",
+  "answer": "The whale in Herman Melville's 'Moby-Dick' is a large white sperm whale also called Moby Dick.",
+  "domain": "literature"
+ },
+ {
+  "question": "Who wrote 'One Hundred Years of Solitude'?",
+  "answer": "'One Hundred Years of Solitude' was written by Colombian author Gabriel Garc\u00eda M\u00e1rquez and published in 1967.",
+  "domain": "literature"
+ },
+ {
+  "question": "What dystopian novel by George Orwell features the totalitarian leader Big Brother?",
+  "answer": "George Orwell's novel 'Nineteen Eighty-Four,' published in 1949, features the totalitarian figurehead known as Big Brother.",
+  "domain": "literature"
+ },
+ {
+  "question": "In which country is Leo Tolstoy's epic novel 'War and Peace' primarily set?",
+  "answer": "'War and Peace' is primarily set in Russia during the Napoleonic Wars of the early nineteenth century.",
+  "domain": "literature"
+ },
+ {
+  "question": "What is the first book of the Harry Potter series by J.K. Rowling?",
+  "answer": "The first book in J.K. Rowling's Harry Potter series is 'Harry Potter and the Philosopher's Stone,' published in 1997.",
+  "domain": "literature"
+ },
+ {
+  "question": "Who wrote the epic poem 'The Divine Comedy'?",
+  "answer": "'The Divine Comedy' was written by the Italian poet Dante Alighieri in the early fourteenth century.",
+  "domain": "literature"
+ },
+ {
+  "question": "What American novel by F. Scott Fitzgerald depicts the decadence of the Jazz Age?",
+  "answer": "F. Scott Fitzgerald's 'The Great Gatsby,' published in 1925, depicts the decadence and disillusionment of the Jazz Age.",
+  "domain": "literature"
+ },
+ {
+  "question": "Who is the author of the existentialist novel 'The Stranger' ('L'\u00c9tranger')?",
+  "answer": "'The Stranger' was written by French-Algerian author Albert Camus and published in 1942.",
+  "domain": "literature"
+ }
+]
